@@ -1,0 +1,2 @@
+// Windows exe-embedded icon (windres via MinGW).
+IDI_ICON1 ICON "resources/app.ico"

@@ -1,0 +1,97 @@
+#pragma once
+
+#include <string_view>
+
+#include <ordo/core/agent.h>
+
+#include "agent/events.h"
+
+namespace plnr::agent {
+
+inline constexpr std::string_view kShadowStoreName = "shadow";
+
+// Default sun position. month/day/hourLocal: the reference modeler's Shadows-panel default (11/08, 13.5h = 1:30pm).
+// latitudeDeg/longitudeDeg: this app's own pick (Seoul), not a the reference modeler fact.
+inline constexpr double kDefaultLatitudeDeg = 37.57;
+inline constexpr double kDefaultLongitudeDeg = 126.98;
+inline constexpr int kDefaultMonth = 11;
+inline constexpr int kDefaultDay = 8;
+inline constexpr double kDefaultHourLocal = 13.5;
+
+// Light/Dark slider defaults (match the reference modeler's panel: 80 and 45).
+inline constexpr double kDefaultLight = 80.0;
+inline constexpr double kDefaultDark = 45.0;
+
+// Sun-position face shading is ON by default (as in the reference modeler); showShadows is default-off.
+// The .plr isAllDefault() omit-gate follows this constant.
+inline constexpr bool kDefaultUseSunForShading = true;
+
+// Sun-shading and ground-shadow settings. Setters send ShadowsChanged only on change. VIEW-SETTING: dirties the document, never undo-captured.
+// useSunForShading_ is N.L face shading only (no casting); showShadows_ is independent casting.
+// light_/dark_ (0-100, unclamped) scale N.L strength / shadow alpha.
+class ShadowStore : public ordo::core::Agent {
+public:
+    ShadowStore();
+
+    // Sets whether sun-position face shading is active. No-op if unchanged.
+    bool setUseSunForShading(bool value);
+
+    // Sets whether ground-plane shadow casting is active. No-op if unchanged.
+    bool setShowShadows(bool value);
+
+    // Sets the sun's geographic position (plain degrees, unvalidated). No-op if unchanged.
+    bool setPosition(double latitudeDeg, double longitudeDeg);
+
+    // Sets the sun's calendar date/time, taken verbatim (agent::sun::solarAngles clamps
+    // defensively downstream). No-op if all three already match.
+    bool setDateTime(int month, int day, double hourLocal);
+
+    // Sets the Light slider (0-100, unvalidated). No-op if unchanged.
+    bool setLight(double value);
+
+    // Sets the Dark slider (0-100, unvalidated). No-op if unchanged.
+    bool setDark(double value);
+
+    bool useSunForShading() const;
+    bool showShadows() const;
+    double latitudeDeg() const;
+    double longitudeDeg() const;
+    int month() const;
+    int day() const;
+    double hourLocal() const;
+    double light() const;
+    double dark() const;
+
+    // True iff every field is still at its ctor-seeded default -- gates the "omit `shadows`" case.
+    bool isAllDefault() const;
+
+    // -- Restore API: file loader paths; plain data manipulation, no notification.
+
+    // Resets every field to its ctor-seeded default (New Document).
+    void clearForRestore();
+
+    void restoreUseSunForShading(bool value);
+
+    void restoreShowShadows(bool value);
+
+    void restorePosition(double latitudeDeg, double longitudeDeg);
+
+    void restoreDateTime(int month, int day, double hourLocal);
+
+    void restoreLight(double value);
+
+    void restoreDark(double value);
+
+private:
+    bool useSunForShading_{kDefaultUseSunForShading};
+    bool showShadows_{false};
+    double latitudeDeg_{kDefaultLatitudeDeg};
+    double longitudeDeg_{kDefaultLongitudeDeg};
+    int month_{kDefaultMonth};
+    int day_{kDefaultDay};
+    double hourLocal_{kDefaultHourLocal};
+    double light_{kDefaultLight};
+    double dark_{kDefaultDark};
+};
+
+}  // namespace plnr::agent

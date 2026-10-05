@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="butt" stroke-linejoin="miter">
+  <defs>
+    <linearGradient id="planuraTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4050F0"/>
+      <stop offset="100%" stop-color="#3039C9"/>
+    </linearGradient>
+    <linearGradient id="planuraSide" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D39BD"/>
+      <stop offset="100%" stop-color="#2631A8"/>
+    </linearGradient>
+    <linearGradient id="planuraLightFace" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D0D8FA"/>
+      <stop offset="100%" stop-color="#9EAFE9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- stepped architectural mass, exact 2:1 pseudo-isometric lattice (geometry
+       measured from the accepted gpt-image reference via trace_skeleton, then
+       snapped): step drops 86+32+75 = 193 = full left-face height; top-edge runs
+       (62,31)+(64,32)+(74,37) = (200,100) = the bottom edge, all exactly 2:1 -->
+  <!-- left stepped face (light) -->
+  <polygon points="132,127 194,158 194,244 258,276 258,308 332,345 332,420 132,320" fill="url(#planuraLightFace)"/>
+  <!-- tall step: top + right vertical -->
+  <polygon points="132,127 244,71 306,102 194,158" fill="url(#planuraTop)"/>
+  <polygon points="194,158 306,102 306,188 194,244" fill="url(#planuraSide)"/>
+  <!-- mid step: receding top (flat mid-pale) + front vertical -->
+  <polygon points="194,244 306,188 370,220 258,276" fill="#9EAFE9"/>
+  <polygon points="258,276 370,220 370,252 258,308" fill="url(#planuraSide)"/>
+  <!-- low step: top + right vertical -->
+  <polygon points="258,308 370,252 444,289 332,345" fill="url(#planuraTop)"/>
+  <polygon points="332,345 444,289 444,364 332,420" fill="url(#planuraSide)"/>
+
+  <!-- orbit arc: the single curved element (camera tool = rotational); owner-tuned
+       curve (Affinity 2026-09-05, transforms baked - source refs/tb_orbit/affinity-edit.svg):
+       a rounder-than-isometric orbit with a tightened left entry, grazing the low
+       step's bottom corner in front -->
+  <path d="M 121.1,248.4 C 97.4,262.5 87.7,270.4 79.0,286.0 C 74.5,293.9 72.6,307.2 72.6,318.8 C 72.6,388.2 168.0,442.1 278.5,442.1 C 339.2,442.1 388.7,432.8 427.0,403.2" fill="none" stroke="#293AB4" stroke-width="10"/>
+  <polygon points="453.5,380.9 438.2,419.2 413,389" fill="#293AB4"/>
+</svg>

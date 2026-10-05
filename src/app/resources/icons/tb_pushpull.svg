@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-linecap="butt" stroke-linejoin="miter">
+  <defs>
+    <linearGradient id="planuraTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4050F0"/>
+      <stop offset="100%" stop-color="#3039C9"/>
+    </linearGradient>
+    <linearGradient id="planuraSide" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D39BD"/>
+      <stop offset="100%" stop-color="#2631A8"/>
+    </linearGradient>
+    <linearGradient id="planuraLightFace" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D0D8FA"/>
+      <stop offset="100%" stop-color="#9EAFE9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ground plan (the 2D origin of the extrusion) -->
+  <polygon points="76,330 256,240 436,330 256,420" fill="none" stroke="#293AB4" stroke-width="10"/>
+
+  <!-- extruded slab, lifted above the plan: top / left (lit) / right (deep) -->
+  <polygon points="106,205 256,130 406,205 256,280" fill="url(#planuraTop)"/>
+  <polygon points="106,205 256,280 256,335 106,260" fill="url(#planuraLightFace)"/>
+  <polygon points="256,280 406,205 406,260 256,335" fill="url(#planuraSide)"/>
+
+  <!-- extrusion direction indicator -->
+  <line x1="76" y1="322" x2="76" y2="225" stroke="#293AB4" stroke-width="10"/>
+  <polygon points="76,188 52,232 100,232" fill="#293AB4"/>
+</svg>
